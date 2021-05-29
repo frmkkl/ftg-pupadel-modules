@@ -43,13 +43,13 @@ class rretMod(loader.Module):
     async def watcher(self, message):
         if not isinstance(message, types.Message):
             return
-        if message.mentioned or getattr(message.to_id, "user_id", None) == self._me.id:
+        if message.mentioned or getattr(message.chat_id, "user_id", None) == self._me.id:
             if self.get_rret() != False:
                 rret_state = self.get_rret()
                 chat = int(rret_state.split("|")[0])
                 id = int(rret_state.split("|")[1])
                 rret = await self.client.get_messages(chat, ids=id)
-                await self.client.send_message(message.to_id, rret, reply_to=message)
+                await self.client.send_message(message.chat_id, rret, reply_to=message)
 
 
     def get_rret(self):
